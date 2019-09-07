@@ -21,7 +21,7 @@ export default class CreateUser extends Component {
 
     // Método: Ejecuta acciones una vez el componente a sido montado
     async componentDidMount() {
-        /** Realiza petición HTTP al API usando axios */
+        /** Realiza petición HTTP al API usando axios para mostrar la lista de usuarios */
         const users = await axios .get( 'http://localhost:4000/api/users' );    // Es una operación Asincrona por lo que se puede usar: un callback, una Promesa o en este último caso convertir nuestra funcion en una funcion asincrona. Podria usarse el tipico fetch() de JavaScript Promise, etc
         console .log( users );
 
@@ -32,17 +32,30 @@ export default class CreateUser extends Component {
         console .log( 'Estado de usuarios', this .state .users );
     }
 
+    // Método: Envia datos al API a través del formulario (POST)
+    onSubmit = async e => {
+        e .preventDefault();    // Cancela el comportamiento por defecto del formulario de recargar la página
+    
+        /** Realiza peticion HTTP al API usando axios y enviando el valor 'userName' para insertarlo */
+        const res = await axios .post( 'http://localhost:4000/api/users', {                 // Es una operación Asincrona por lo que se puede usar: un callback, una Promesa o en este último caso convertir nuestra funcion en una funcion asincrona. Podria usarse el tipico fetch() de JavaScript Promise, etc
+            userName: this .state .user_name                                                // Pasamos el dato del formulario establecido en el Estado del Componente
+        });
+        console .log( res );
+
+    }
+
     render() {
         return (
             <div className="row">
                 <div className="col-md-4">
                     <div className="card card-body">
                         <h3>Crear Usuario</h3>
-                        <form action="">
+                        <form onSubmit={ this .onSubmit }>
                             <div className="form-group">
                                 { /** onChange: Método para escuchar por cambios en el elemento */}
                                 <input type="text" className="form-control" onChange={ this .onChangeUserName } />
                             </div>
+                            <button type="submit" className="btn btn-primary">Guardar</button>
                         </form>
                     </div>
                 </div>
