@@ -60,7 +60,12 @@ export default class CreateUser extends Component {
                         <form onSubmit={ this .onSubmit }>
                             <div className="form-group">
                                 { /** onChange: Método para escuchar por cambios en el elemento */}
-                                <input type="text" className="form-control" value={ this .state .user_name } onChange={ this .onChangeUserName } />
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    value={ this .state .user_name } 
+                                    onChange={ this .onChangeUserName } 
+                                />
                             </div>
                             <button type="submit" className="btn btn-primary">Guardar</button>
                         </form>
@@ -69,7 +74,13 @@ export default class CreateUser extends Component {
                 <div className="col-md-8">
                     <ul className="list-group">
                         { this .state .users .map( user => {
-                            return ( <li className="list-group-item list-group-item-action" key={ user ._id }>{ user .userName }</li> );
+                            return ( 
+                                <li 
+                                    className="list-group-item list-group-item-action" 
+                                    key={ user ._id }
+                                >{ user .userName }
+                                </li> 
+                            );
                         }) }
                     </ul>
                 </div>
