@@ -1,6 +1,8 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "description": "MERN: Project FrontEnd - Notes App",
+  "author": "Juan Carlos Jiménez Gutiérrez <jcjimenez29@misena.edu.co>",
   "private": true,
   "dependencies": {
     "react": "^16.9.0",
