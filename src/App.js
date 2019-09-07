@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';		// BrowserRouter(Contenedor): Permite crear URLs en nuestra aplicación. Route(Rutas): Permite especificar Rutas
 import './App.css';
 
 import Navigation from './components/Navigation';
@@ -8,13 +9,16 @@ import CreateUser from './components/CreateUser'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Navigation/>
-        <h1>Notes App</h1>
-        <h3>MERN Stack (API RestFul)</h3>
-      </header>
-    </div>
+    <Router>
+		<Navigation/>
+		<h1>Notes App</h1>
+		<h3>MERN Stack (API RestFul)</h3>
+		{/** Creamos las rutas para nuestros componentes */}
+		<Route path="/" component={ NotesList } />
+		<Route path="/edit/:id" component={ CreateNote } />
+		<Route path="/create" component={ CreateNote } />
+		<Route path="/user" component={ CreateUser } />
+	</Router>
   );
 }
 
