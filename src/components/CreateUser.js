@@ -47,6 +47,7 @@ export default class CreateUser extends Component {
         });
         console .log( res );
 
+        this .setState({ user_name: '' });          // Establece el estado del campo del componente 'vacio'
         this .getUsers();       // Obtener los usuarios
     }
 
@@ -59,7 +60,7 @@ export default class CreateUser extends Component {
                         <form onSubmit={ this .onSubmit }>
                             <div className="form-group">
                                 { /** onChange: Método para escuchar por cambios en el elemento */}
-                                <input type="text" className="form-control" onChange={ this .onChangeUserName } />
+                                <input type="text" className="form-control" value={ this .state .user_name } onChange={ this .onChangeUserName } />
                             </div>
                             <button type="submit" className="btn btn-primary">Guardar</button>
                         </form>
