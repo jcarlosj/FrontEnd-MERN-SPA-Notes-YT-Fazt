@@ -12,13 +12,15 @@ function App() {
   return (
     <Router>
 		<Navigation/>
-		<h1>Notes App</h1>
-		<h3>MERN Stack (API RestFul)</h3>
-		{/** Creamos las rutas para nuestros componentes (exact: Muestra exactamente el componente que conincide con la ruta, evita que se muestre en las otras rutas) */}
-		<Route path="/" exact component={ NotesList } />
-		<Route path="/edit/:id" component={ CreateNote } />
-		<Route path="/create" component={ CreateNote } />
-		<Route path="/user" component={ CreateUser } />
+		<div className="container p-4">
+			<h1>Notes App</h1>
+			<h3>MERN Stack (API RestFul)</h3>
+			{/** Creamos las rutas para nuestros componentes (exact: Muestra exactamente el componente que conincide con la ruta, evita que se muestre en las otras rutas) */}
+			<Route path="/" exact component={ NotesList } />
+			<Route path="/edit/:id" component={ CreateNote } />
+			<Route path="/create" component={ CreateNote } />
+			<Route path="/user" component={ CreateUser } />
+		</div>
 	</Router>
   );
 }
