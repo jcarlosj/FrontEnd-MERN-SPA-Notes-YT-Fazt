@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';		// BrowserRouter(Contenedor): Permite crear URLs en nuestra aplicación. Route(Rutas): Permite especificar Rutas
+import 'bootstrap/dist/css/bootstrap.min.css';							// Importa Hojas de estilo de Bootstrap
 import './App.css';
 
 import Navigation from './components/Navigation';
