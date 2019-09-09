@@ -51,7 +51,7 @@ export default class CreateUser extends Component {
         this .getUsers();       // Obtener los usuarios
     }
 
-    // Método: 
+    // Método: Envia datos al API al hacer doble click sobre el elemento de la lista (DELETE)
     deleteUser = async ( id ) => {
         console .log( 'ID', id );
         await axios .delete( `http://localhost:4000/api/users/${ id }` );
