@@ -5,7 +5,8 @@ export default class CreateNote extends Component {
 
     // Define el estado de los datos en el Componente
     state = {
-        users: []
+        users: [],
+        user_selected: ''
     }
 
     // Método: Ejecuta acciones una vez el componente a sido montado
@@ -25,6 +26,16 @@ export default class CreateNote extends Component {
         e .preventDefault();
     }
 
+    // Método: Establese en el estado del Componente cuando el valor seleccionado cambia
+    onInputChange = ( e ) => {
+        console .log( e .target .value );       // Obtiene el valor seleccionado en el selector del formulario
+        
+        // Almacena los datos en el Estado de la Aplicación del Componente
+        this .setState({
+            user_selected: e .target .value                           // Establece el usuario seleccionado
+        });
+    }
+
     render() {
         return (
             <div className="col-md-6 offset-md-3">
@@ -36,7 +47,7 @@ export default class CreateNote extends Component {
                             <select 
                                 className="form-control"
                                 name="userSelected"
-                               
+                                onChange={ this .onInputChange }
                             >
                                 {
                                     this .state .users .map( user => <option key={ user } value={ user }>{ user }</option> )
