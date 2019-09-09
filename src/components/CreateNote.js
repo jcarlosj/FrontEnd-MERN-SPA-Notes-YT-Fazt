@@ -30,7 +30,7 @@ export default class CreateNote extends Component {
         e .preventDefault();
     }
 
-    // Método: Establese en el estado del Componente cuando el valor seleccionado cambia
+    // Método: Establece en el estado del Componente cuando el valor seleccionado cambia
     onInputChange = ( e ) => {
         console .log( e .target .value );       // Obtiene el valor seleccionado en el selector del formulario
         
@@ -38,6 +38,13 @@ export default class CreateNote extends Component {
         this .setState({
             user_selected: e .target .value                           // Establece el usuario seleccionado
         });
+    }
+
+    // Método: Establece en el estado del Componente la fecha cuando se cambia usando el DatePicker
+    onChangeDate = date => {
+        this .setState({
+            date            // ES6: No se necesita asignar cuando el valor asignado y la variable de destino se llaman igual ( date: date )
+        })
     }
 
     render() {
@@ -80,6 +87,7 @@ export default class CreateNote extends Component {
                             <DatePicker 
                                 className="form-control" 
                                 selected={ this .state .date }
+                                onChange={ this .onChangeDate }
                             />
                         </div>
 
