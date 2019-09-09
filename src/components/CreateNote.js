@@ -54,6 +54,25 @@ export default class CreateNote extends Component {
                                 }
                             </select>
                         </div>
+                        <div className="form-group">
+                            <input 
+                                className="form-control" 
+                                type="text" 
+                                name="title" 
+                                placeholder="Título" 
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <textarea 
+                                name="description"
+                                className="form-control"
+                                placeholder="Descripción"
+                                required
+                            >
+                            </textarea>
+                        </div>
+
                         <form onSubmit={ this .onSubmit }>
                             <button type="submit" className="btn btn-primary">Guardar</button>
                         </form>
