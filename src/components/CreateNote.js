@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';                  // Paquete que permite hacer peticiones HTTP
 
+import DatePicker from 'react-datepicker';             // Importa código JavaScript de DatePicker para React
+import 'react-datepicker/dist/react-datepicker.css';    // Importa código CSS de DatePicker para React
+
 export default class CreateNote extends Component {
 
     // Define el estado de los datos en el Componente
     state = {
         users: [],
-        user_selected: ''
+        user_selected: '',
+        date: new Date()        // Fecha Actual por defecto
     }
 
     // Método: Ejecuta acciones una vez el componente a sido montado
@@ -71,6 +75,12 @@ export default class CreateNote extends Component {
                                 required
                             >
                             </textarea>
+                        </div>
+                        <div className="form-group">
+                            <DatePicker 
+                                className="form-control" 
+                                selected={ this .state .date }
+                            />
                         </div>
 
                         <form onSubmit={ this .onSubmit }>
