@@ -11,6 +11,10 @@ export default class NotesList extends Component {
 
     // Método: Ejecuta acciones una vez el componente a sido montado
     componentDidMount = async () => {
+        this .getNotes();
+    }
+
+    getNotes = async () => {
         const notes = await axios .get( 'http://localhost:4000/api/notes' );
         console .log( 'data', notes );
 
@@ -18,6 +22,13 @@ export default class NotesList extends Component {
         this .setState({
             notes: notes .data
         });
+    }
+
+    // Método: Envia datos al API al hacer doble click sobre el elemento de la lista (DELETE)
+    deleteNote = async ( id ) => {
+        console .log( 'ID', id );
+        await axios .delete( `http://localhost:4000/api/notes/${ id }` );
+        this .getNotes();       // Obtener las notas
     }
 
     render() {
@@ -35,7 +46,7 @@ export default class NotesList extends Component {
                                     <p class="card-text"><small class="text-muted">{ format( note .date ) }</small></p>
                                     <p className="card-text">{ note .content }</p>
                                     <a href="#" className="card-link">Card link</a>
-                                    <a href="#" className="card-link">Another link</a>
+                                    <a href="#" className="card-link" onClick={ () => this .deleteNote( note ._id ) }>Eliminar</a>
                                 </div>
                             </div>
                         </div>
