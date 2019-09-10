@@ -10,6 +10,9 @@ export default class CreateNote extends Component {
     state = {
         users: [],
         user_selected: '',
+        userSelected: '',       // Select del Formulario
+        title: '',              // Input del Formulario
+        description: '',        // Textarea del Formulario
         date: new Date()        // Fecha Actual por defecto
     }
 
@@ -30,18 +33,22 @@ export default class CreateNote extends Component {
         e .preventDefault();
     }
 
-    // Método: Establece en el estado del Componente cuando el valor seleccionado cambia
-    onInputChange = ( e ) => {
-        console .log( e .target .value );       // Obtiene el valor seleccionado en el selector del formulario
-        
+    // Método: Establece en el estado del Compomente cuando el valor de uno o másl campos del formulario cambian
+    onChangeFormFieldsValue = e => {
+        console .log( '[', e. target .name, ']: ', e. target .value );   // Obtiene el valor de los atributo 'name' y 'value' de los campos nativos del formulario (DatePicker no es nativo)
+
         // Almacena los datos en el Estado de la Aplicación del Componente
         this .setState({
-            user_selected: e .target .value                           // Establece el usuario seleccionado
+            [ e .target .name ]: e .target .value   // Establece valor al atributo seleccionado (userSelected, title, description) del formulario.
         });
-    }
+
+    } 
 
     // Método: Establece en el estado del Componente la fecha cuando se cambia usando el DatePicker
     onChangeDate = date => {
+        console .log( '[ date-picker ]: ', date );
+
+        // Almacena los datos en el Estado de la Aplicación del Componente
         this .setState({
             date            // ES6: No se necesita asignar cuando el valor asignado y la variable de destino se llaman igual ( date: date )
         })
@@ -58,7 +65,7 @@ export default class CreateNote extends Component {
                             <select 
                                 className="form-control"
                                 name="userSelected"
-                                onChange={ this .onInputChange }
+                                onChange={ this .onChangeFormFieldsValue }
                             >
                                 {
                                     this .state .users .map( user => <option key={ user } value={ user }>{ user }</option> )
@@ -70,6 +77,7 @@ export default class CreateNote extends Component {
                                 className="form-control" 
                                 type="text" 
                                 name="title" 
+                                onChange={ this .onChangeFormFieldsValue }
                                 placeholder="Título" 
                                 required
                             />
@@ -77,6 +85,7 @@ export default class CreateNote extends Component {
                         <div className="form-group">
                             <textarea 
                                 name="description"
+                                onChange={ this .onChangeFormFieldsValue }
                                 className="form-control"
                                 placeholder="Descripción"
                                 required
