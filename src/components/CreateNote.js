@@ -46,6 +46,7 @@ export default class CreateNote extends Component {
 
         const res = await axios .post( 'http://localhost:4000/api/notes', newNote );
         console .log( res );
+        window .location .href = "/";                                                 // Redirecciona al Home (Listado Notas)
     }
 
     // Método: Establece en el estado del Compomente cuando el valor de uno o másl campos del formulario cambian
