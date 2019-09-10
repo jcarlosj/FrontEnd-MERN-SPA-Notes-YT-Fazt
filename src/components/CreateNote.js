@@ -9,10 +9,9 @@ export default class CreateNote extends Component {
     // Define el estado de los datos en el Componente
     state = {
         users: [],
-        user_selected: '',
-        userSelected: '',       // Select del Formulario
+        user_selected: '',      // Select del Formulario
         title: '',              // Input del Formulario
-        description: '',        // Textarea del Formulario
+        content: '',        // Textarea del Formulario
         date: new Date()        // Fecha Actual por defecto
     }
 
@@ -23,14 +22,30 @@ export default class CreateNote extends Component {
 
         // Almacena los datos en el Estado de la Aplicación del Componente
         this .setState({
-            users: res .data .map( user => user .userName )                           // Mapeamos solo el campo userName de todo el Array de Objetos por usuario
+            users: res .data .map( user => user .userName ),                          // Mapeamos solo el campo userName de todo el Array de Objetos por usuario
+            user_selected: res .data[ 0 ] .userName                                   // Establece el usuario seleccionado por defecto como el primero en la lista del selector Obtenida
         });
         console .log( 'Solo los userName de usuarios', this .state .users );
     }
 
-    onSubmit = ( e ) => {
-
+    onSubmit = async ( e ) => {
         e .preventDefault();
+
+        console .group( 'state' );
+        console .log( 'user_selected', this .state .user_selected );
+        console .log( 'title', this .state .title );
+        console .log( 'content', this .state .content );
+        console.groupEnd();
+
+        const newNote = {
+            author: this .state .user_selected,
+            title: this .state .title,
+            content: this .state .content,
+            date: this .state .date
+        }
+
+        const res = await axios .post( 'http://localhost:4000/api/notes', newNote );
+        console .log( res );
     }
 
     // Método: Establece en el estado del Compomente cuando el valor de uno o másl campos del formulario cambian
@@ -39,7 +54,7 @@ export default class CreateNote extends Component {
 
         // Almacena los datos en el Estado de la Aplicación del Componente
         this .setState({
-            [ e .target .name ]: e .target .value   // Establece valor al atributo seleccionado (userSelected, title, description) del formulario.
+            [ e .target .name ]: e .target .value   // Establece valor al atributo seleccionado (userSelected, title, content) del formulario.
         });
 
     } 
@@ -64,7 +79,7 @@ export default class CreateNote extends Component {
                         <div className="form-group">
                             <select 
                                 className="form-control"
-                                name="userSelected"
+                                name="user_selected"
                                 onChange={ this .onChangeFormFieldsValue }
                             >
                                 {
@@ -84,7 +99,7 @@ export default class CreateNote extends Component {
                         </div>
                         <div className="form-group">
                             <textarea 
-                                name="description"
+                                name="content"
                                 onChange={ this .onChangeFormFieldsValue }
                                 className="form-control"
                                 placeholder="Descripción"
