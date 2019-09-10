@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axios from 'axios';                  // Paquete que permite hacer peticiones HTTP
+import { format } from 'timeago.js';    // Librería para formatear la fecha 
 
 export default class NotesList extends Component {
 
@@ -31,7 +32,7 @@ export default class NotesList extends Component {
                                     <h6 className="card-subtitle mb-2 text-muted">{ note .author }</h6>
                                 </div>
                                 <div className="card-body">
-                                    <p class="card-text"><small class="text-muted">{ note .date }</small></p>
+                                    <p class="card-text"><small class="text-muted">{ format( note .date ) }</small></p>
                                     <p className="card-text">{ note .content }</p>
                                     <a href="#" className="card-link">Card link</a>
                                     <a href="#" className="card-link">Another link</a>
