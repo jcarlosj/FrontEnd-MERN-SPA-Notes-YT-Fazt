@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';                  // Paquete que permite hacer peticiones HTTP
 import { format } from 'timeago.js';    // Librería para formatear la fecha 
 
@@ -43,9 +44,9 @@ export default class NotesList extends Component {
                                     <h6 className="card-subtitle mb-2 text-muted">{ note .author }</h6>
                                 </div>
                                 <div className="card-body">
-                                    <p class="card-text"><small class="text-muted">{ format( note .date ) }</small></p>
+                                    <p className="card-text"><small className="text-muted">{ format( note .date ) }</small></p>
                                     <p className="card-text">{ note .content }</p>
-                                    <a href="#" className="card-link">Card link</a>
+                                    <Link className="card-link" to={ `/edit/${ note ._id }` }>Editar</Link>
                                     <a href="#" className="card-link" onClick={ () => this .deleteNote( note ._id ) }>Eliminar</a>
                                 </div>
                             </div>

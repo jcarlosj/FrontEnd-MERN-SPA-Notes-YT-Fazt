@@ -11,12 +11,16 @@ export default class CreateNote extends Component {
         users: [],
         user_selected: '',      // Select del Formulario
         title: '',              // Input del Formulario
-        content: '',        // Textarea del Formulario
-        date: new Date()        // Fecha Actual por defecto
+        content: '',            // Textarea del Formulario
+        date: new Date(),       // Fecha Actual por defecto
+        _id: '',                // ID del registro a editar
+        editing: false          // Flag identificar cuando editar
     }
 
     // Método: Ejecuta acciones una vez el componente a sido montado
     async componentDidMount() {
+        console .log( this .props .match .params );    // Obtiene los parametros pasados en la URL
+
         /** Realiza peticion HTTP al API usando axios */
         const res = await axios .get( 'http://localhost:4000/api/users' );          // Es una operación Asincrona por lo que se puede usar: un callback, una Promesa o en este último caso convertir nuestra funcion en una funcion asincrona. Podria usarse el tipico fetch() de JavaScript Promise, etc
 
@@ -26,6 +30,15 @@ export default class CreateNote extends Component {
             user_selected: res .data[ 0 ] .userName                                   // Establece el usuario seleccionado por defecto como el primero en la lista del selector Obtenida
         });
         console .log( 'Solo los userName de usuarios', this .state .users );
+
+        // Solo para Editar la Nota cuando se pase un ID a la URL
+        if( this .props .match .params .id )  {
+            // Almacena los datos en el Estado de la Aplicación del Componente
+            this .setState({
+                _id: this .props .match .params .id,
+                editing: true
+            });
+        }
     }
 
     onSubmit = async ( e ) => {
@@ -44,8 +57,17 @@ export default class CreateNote extends Component {
             date: this .state .date
         }
 
-        const res = await axios .post( 'http://localhost:4000/api/notes', newNote );
-        console .log( res );
+        // Valida estado de edicion
+        if( this .state .editing ) {
+            // Edita registro existente
+            const res = await axios .put( `http://localhost:4000/api/notes/${ this .state .id }`, newNote );
+            console .log( res );
+        } else {
+            // Crea registro nuevo
+            const res = await axios .post( 'http://localhost:4000/api/notes', newNote );    // Solo cuando crea un registro nuevo
+            console .log( res );
+        }
+        
         window .location .href = "/";                                                 // Redirecciona al Home (Listado Notas)
     }
 
@@ -73,8 +95,8 @@ export default class CreateNote extends Component {
     render() {
         return (
             <div className="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-body">
+                <div className="card">
+                    <div className="card-body">
                         <h3>Crear Nota</h3>
                         {/** Select User */}
                         <div className="form-group">
