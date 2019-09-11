@@ -33,10 +33,19 @@ export default class CreateNote extends Component {
 
         // Solo para Editar la Nota cuando se pase un ID a la URL
         if( this .props .match .params .id )  {
+            // Peticion de una nota especifica para obtener los valores actuales del registro (documento)
+            const note = await axios .get( `http://localhost:4000/api/notes/${ this .props .match .params .id }` );
+            console .log( 'Note', note .data );
+
             // Almacena los datos en el Estado de la Aplicación del Componente
             this .setState({
                 _id: this .props .match .params .id,
-                editing: true
+                editing: true,
+                // Datos del la nota actual (las establecemos para poder mostrarlas en los campos del formulario cuando se edite)
+                title: note .data .title,               
+                content: note .data .content,
+                date: new Date( note .data .date ),     // Debemos usar una instancia de Date, de lo contrario estaremos pasando un String
+                user_selected: note .data .author
             });
         }
     }
@@ -103,6 +112,7 @@ export default class CreateNote extends Component {
                             <select 
                                 className="form-control"
                                 name="user_selected"
+                                value={ this .state .user_selected }
                                 onChange={ this .onChangeFormFieldsValue }
                             >
                                 {
@@ -115,6 +125,7 @@ export default class CreateNote extends Component {
                                 className="form-control" 
                                 type="text" 
                                 name="title" 
+                                value={ this .state .title }
                                 onChange={ this .onChangeFormFieldsValue }
                                 placeholder="Título" 
                                 required
@@ -123,6 +134,7 @@ export default class CreateNote extends Component {
                         <div className="form-group">
                             <textarea 
                                 name="content"
+                                value={ this .state .content }
                                 onChange={ this .onChangeFormFieldsValue }
                                 className="form-control"
                                 placeholder="Descripción"
